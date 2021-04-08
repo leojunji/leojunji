@@ -33,7 +33,7 @@ class Disciplina(models.Model):
 
     def __str__(self):
        # return self.titulo,self.estudante,self.curso
-        return f"{self.titulo},{self.estudante},{self.curso}"
+        return f"{self.curso},{self.titulo},{self.turno},{self.diadasemana}"
 
 class Matricula(models.Model):
 
@@ -51,8 +51,8 @@ class Matricula(models.Model):
     )
 
     estudante = models.ForeignKey(get_user_model(),  related_name='+', on_delete=models.CASCADE)
-    disciplina = models.ForeignKey('Disciplina', verbose_name="Disciplinas", related_name="disciplinafk", on_delete=models.CASCADE)
+    disciplina = models.ForeignKey('Disciplina', verbose_name="Disciplinas", related_name="disciplinafk", on_delete=models.CASCADE, blank=True, null=True)
     datacriacao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.semestre},{self.status}"
+        return f"{self.estudante},{self.disciplina.titulo},{self.semestre},{self.status}"
